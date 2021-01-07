@@ -6,7 +6,7 @@ import com.library.management.models.Response;
 import com.library.management.service.AdminOperationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,14 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("lms/admin/")
+@RequestMapping(value = "lms/admin/", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 public class AdminOperationsController {
 
     private static final Logger logger = LoggerFactory.getLogger(AdminOperationsController.class);
 
     private AdminOperationService adminOperationService;
 
-    @Autowired
     public AdminOperationsController(AdminOperationService adminOperationService){
         this.adminOperationService = adminOperationService;
     }
@@ -42,11 +41,11 @@ public class AdminOperationsController {
     }
 
     @PostMapping("remove")
-    public Response removeBook(@RequestBody  Book book) {
+    public Response removeBook(@RequestBody Book book) {
         logger.info("Entering AdminOperationsController :: {}{}", "removeBook method Req payload ->", book);
         Response response = null;
         try {
-            response = adminOperationService.removeBook(book);
+            response = adminOperationService.removeBook(book.getName());
         } catch (LMSException e) {
             logger.error("Error in AdminOperationsController :: removeBook -> {}", e.getStatus(), e);
             response = new Response(e.getStatus(), null);

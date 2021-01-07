@@ -10,5 +10,5 @@ public interface AdminOperationService {
 
     Response addBooks(List<Book> books) throws LMSException;
 
-    Response removeBook(Book name) throws LMSException;
+    Response removeBook(String name) throws LMSException;
 }

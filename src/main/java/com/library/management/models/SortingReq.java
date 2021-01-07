@@ -1,9 +1,7 @@
 package com.library.management.models;
 
-import lombok.Getter;
 import lombok.Setter;
 
-@Getter
 @Setter
 public class SortingReq {
 
@@ -14,6 +12,14 @@ public class SortingReq {
     private SortBy sortBy;
 
     private Order sortMethod;
+
+    public String getSortBy() {
+        return sortBy.name();
+    }
+
+    public String getSortMethod() {
+        return sortMethod.name();
+    }
 
     @Override
     public String toString() {
